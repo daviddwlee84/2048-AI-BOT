@@ -12,24 +12,32 @@ Made for the competition of **NTU Taiwan 2048 BOT Competition** in my second hal
 
 ### AI version
 
-`make`
+`$ make`
 
-`./bot2048`
+`$ ./bot2048`
 
 
 ### Manual play version (Use W,A,S,D to control)
 
-`make manual`
+`$ make manual`
 
-`./manual2048`
+`$ ./manual2048`
 
 ## Build with docker
 
 * Compile in Ubuntu docker manually
-	1. [Mount physical directory](https://docs.docker.com/storage/bind-mounts/) - `docker run -it --name test2048 -v "$(pwd)":/app ubuntu:latest`
-	2. Install compilation tool - `apt-get install g++`
+	1. [Mount physical directory](https://docs.docker.com/storage/bind-mounts/)
+	
+		`$ docker run -it --name test2048 -v "$(pwd)":/app ubuntu:latest`
+	
+	2. Install compilation tool
+	
+		`$ apt-get install g++`
+	
 	3. Compile (using instructions above)
-	4. (Optional) Save the container using export - `docker export test2048 > test2048.tar`
+	4. (Optional) Save the container using export
+	
+		`$ docker export test2048 > test2048.tar`
 
     > Pros: The package is small and clean (only about 200 MB for g++ compiler)
     > 
@@ -38,6 +46,7 @@ Made for the competition of **NTU Taiwan 2048 BOT Competition** in my second hal
 
 * Build a image based on gcc and compile it automatically in it and save the image
 	1. Dockerfile: 
+	
         ```
         FROM gcc:4.9
         COPY . /2048-AI
@@ -45,17 +54,27 @@ Made for the competition of **NTU Taiwan 2048 BOT Competition** in my second hal
         RUN g++ -o 2048-AI main.cpp 2048.cpp
         CMD ["./2048-AI"]
         ```
-	2. Build image - `docker build -t ai2048:v1`
+	
+	2. Build image
+	
+		`$ docker build -t ai2048:v1`
 
-	3. Run image - `docker run -it --rm --name test ai2048:v1`
+	3. Run image
+	
+		`$ docker run -it --rm --name test ai2048:v1`
 
     > Pros: Very quick
     > 
     > Cons: The new package is as big as gcc image (1.37GB)
 
 * Cross compile using gcc image and run it in a clean ubuntu image
-	1. Compile using gcc image (it will save in the current directory) - `docker run --rm -v "$PWD":/usr/src/ai2048 -w /usr/src/ai2048 gcc:4.9 make`
-	2. Run in ubuntu container - `docker run -it --rm --name 2048AI -v "$PWD:/app" -w /app ubuntu:latest ./bot2048`
+	1. Compile using gcc image (it will save in the current directory)
+	
+		`$ docker run --rm -v "$PWD":/usr/src/ai2048 -w /usr/src/ai2048 gcc:4.9 make`
+	
+	2. Run in ubuntu container
+	
+		`$ docker run -it --rm --name 2048AI -v "$PWD:/app" -w /app ubuntu:latest ./bot2048`
 
     > Pros: Very small
     > 
