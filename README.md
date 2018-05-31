@@ -32,16 +32,27 @@ Made for the competition of **NTU Taiwan 2048 BOT Competition** in my second hal
 	
 	2. Install compilation tool
 	
-		`$ apt-get install g++`
+		`$ apt-get update`
+		
+		`$ apt-get install -y g++ build-essential`
 	
 	3. Compile (using instructions above)
-	4. (Optional) Save the container using export
+		
+		`$ cd /app`
+		
+		`$ make`
+	
+	4. Rerun the container (after you stop the container)
+	
+		`$ docker start -i test2048`
+	
+	5. (Optional) Save the container using export
 	
 		`$ docker export test2048 > test2048.tar`
 
-    > Pros: The package is small and clean (only about 200 MB for g++ compiler)
+    > Pros: The package is small and clean (only about 158 MB for g++ compiler and 62.7MB for build-essential)
     > 
-    > Cons: To many manual steps
+    > Cons: Too many manual steps
 
 
 * Build a image based on gcc and compile it automatically in it and save the image
